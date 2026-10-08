@@ -54,6 +54,11 @@ const ICON_DOWNLOAD      = svg('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v
 const ICON_PINTEREST     = svg('<path d="M12 2C6.477 2 2 6.477 2 12c0 4.236 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.181-.78 1.172-4.97 1.172-4.97s-.299-.598-.299-1.482c0-1.388.806-2.428 1.808-2.428.853 0 1.267.641 1.267 1.408 0 .858-.546 2.141-.828 3.33-.236.995.499 1.806 1.476 1.806 1.772 0 3.136-1.867 3.136-4.561 0-2.385-1.715-4.051-4.163-4.051-2.835 0-4.498 2.126-4.498 4.322 0 .856.33 1.773.741 2.274a.3.3 0 0 1 .069.288c-.076.312-.244.995-.276 1.134-.044.183-.145.222-.334.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.967-.527-2.292-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.523 0 10-4.477 10-10S17.523 2 12 2z"/>');
 const ICON_SPOTIFY       = svg('<path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424c-.18.295-.563.387-.857.207-2.35-1.434-5.308-1.758-8.793-.963-.335.077-.67-.133-.746-.467-.077-.334.132-.67.467-.745 3.816-.871 7.087-.496 9.722 1.115.293.18.386.563.207.853zm1.23-2.737c-.226.367-.706.482-1.072.257-2.687-1.652-6.785-2.131-9.965-1.166-.413.126-.848-.106-.973-.519-.125-.413.106-.848.519-.973 3.632-1.102 8.147-.568 11.234 1.328.366.226.481.707.257 1.073zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71c-.501.153-1.03-.131-1.183-.633-.153-.502.131-1.03.633-1.183 3.535-1.073 9.404-.866 12.983 1.258.452.268.602.852.334 1.304-.268.451-.852.602-1.304.334z" fill="currentColor"/>');
 
+// ── Audio Tool Icons ──
+const ICON_MP4_TO_MP3   = svg('<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M7 21h10"/><path d="M12 17v4"/><polygon points="10 7 15 10 10 13 10 7" fill="currentColor"/>');
+const ICON_TRANSCRIBE   = svg('<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/>');
+const CAT_AUDIO         = svg('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>');
+
 // ── Text Tool Icons ──
 const ICON_COUNTER       = svg('<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>');
 const ICON_PASSWORD      = svg('<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1" fill="currentColor"/>');
@@ -137,6 +142,10 @@ export const tools = [
   { id:'youtube-downloader',    name:'YouTube Video Downloader',   desc:'Download YouTube videos in different qualities (MP4).',        category:'social', icon: ICON_DOWNLOAD },
   { id:'pinterest-downloader',  name:'Pinterest Image Downloader', desc:'Download Pinterest images in full native resolution.',         category:'social', icon: ICON_PINTEREST },
 
+  // ===== AUDIO TOOLS =====
+  { id:'mp4-to-mp3',        name:'MP4 to MP3',            desc:'Extract crystal clear MP3 audio from MP4 video files with custom bitrates and trimming.', category:'audio', isWorkflow: true, icon: ICON_MP4_TO_MP3 },
+  { id:'mp3-to-text',       name:'MP3 to Text Transcriber', desc:'Transcribe speech from MP3 audio into TXT, SRT, VTT, JSON, Markdown, and CSV formats.', category:'audio', isWorkflow: true, icon: ICON_TRANSCRIBE },
+
   // ===== TEXT & LISTS TOOLS =====
   { id:'character-counter', name:'Character Counter',         desc:'Easily count the number of characters in a text.',        category:'text', icon: ICON_COUNTER   },
   { id:'password-generator',name:'Password Generator',        desc:'Easily generate a secure and random password.',           category:'text', icon: ICON_PASSWORD  },
@@ -167,6 +176,7 @@ export const categories = [
   { id:'all',    name:'All Tools',   icon: svg('<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>') },
   { id:'image',  name:'Image Tools', icon: CAT_IMAGE,  gradient:'var(--cat-image)'  },
   { id:'pdf',    name:'PDF Tools',   icon: CAT_PDF,    gradient:'var(--cat-pdf)'    },
+  { id:'audio',  name:'Audio Tools', icon: CAT_AUDIO,  gradient:'var(--cat-audio)'  },
   { id:'social', name:'Social Media',icon: CAT_SOCIAL, gradient:'var(--cat-social)' },
   { id:'text',   name:'Text & Lists',icon: CAT_TEXT,   gradient:'var(--cat-text)'   },
 ];

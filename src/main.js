@@ -97,8 +97,8 @@ document.addEventListener('click', (e) => {
 });
 
 /* ── Search helpers ── */
-const catMeta = { image:'#d6c0a2', pdf:'#c4ae8d', social:'#b09c7a', text:'#8c7d62' };
-const catLabel = { image:'Image', pdf:'PDF', social:'Social', text:'Text' };
+const catMeta = { image:'#d6c0a2', pdf:'#c4ae8d', audio:'#9D4EDD', social:'#b09c7a', text:'#8c7d62' };
+const catLabel = { image:'Image', pdf:'PDF', audio:'Audio', social:'Social', text:'Text' };
 
 function highlightMatch(text, query) {
   if (!query) return text;
@@ -374,9 +374,15 @@ function handleDroppedFiles(files) {
   } else if (name.endsWith('.docx')) {
     window.pendingDroppedFile = file;
     navigateTo('/tool/word-to-pdf');
+  } else if (['.mp4', '.mov', '.webm', '.mkv', '.m4v'].some(ext => name.endsWith(ext))) {
+    window.pendingDroppedFile = file;
+    navigateTo('/tool/mp4-to-mp3');
+  } else if (['.mp3', '.wav', '.m4a', '.ogg', '.flac', '.aac'].some(ext => name.endsWith(ext))) {
+    window.pendingDroppedFile = file;
+    navigateTo('/tool/mp3-to-text');
   } else {
     // Show toast for unsupported file types
-    showToast('Unsupported format for instant drop. Drop a JPG, PNG, WEBP, PDF, or DOCX!', 'warning');
+    showToast('Unsupported format for instant drop. Drop a JPG, PNG, WEBP, PDF, DOCX, MP4, or MP3!', 'warning');
   }
 }
 
