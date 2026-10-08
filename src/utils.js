@@ -34,6 +34,9 @@ function showDownloadConfirmationModal(filename, sizeText, onConfirm) {
           </div>
         </div>
         <p class="download-modal-disclaimer">Would you like to authorize this download to your system?</p>
+        <p class="download-modal-note" style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 0.5rem; max-width: 90%; opacity: 0.85; line-height: 1.4;">
+          * Note: Downloads may occasionally fail or require retry for YouTube Downloader and Spotify tools due to external API limits.
+        </p>
       </div>
       <div class="download-modal-footer">
         <button class="download-modal-btn download-modal-btn-cancel">Cancel</button>

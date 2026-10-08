@@ -240,7 +240,8 @@ function renderYouTubeDownloader() {
       <div id="ytVidResult"></div>
     </div>
     <div style="margin-top:1rem;padding:1rem;background:var(--surface);border-radius:12px;border:1px solid var(--border)">
-      <p style="font-size:.8rem;color:var(--text-muted)">💡 <strong>Note:</strong> Video streams are resolved directly and in high audio/video quality.</p>
+      <p style="font-size:.8rem;color:var(--text-muted);margin-bottom:.4rem">💡 <strong>Note:</strong> Video streams are resolved directly and in high audio/video quality.</p>
+      <p style="font-size:.75rem;color:var(--text-muted);opacity:.85">⚠️ <em>Warning: Downloads/fetching may occasionally fail due to YouTube rate limits or IP restrictions.</em></p>
     </div>
   `;
 }
@@ -291,12 +292,13 @@ function renderSpotifyDownloader() {
       <h4 style="margin:0 0 .5rem;font-size:.9rem;color:var(--text-main);display:flex;align-items:center;gap:.4rem">
         <span>💡</span> <strong>How to use:</strong>
       </h4>
-      <ul style="margin:0;padding-left:1.2rem;font-size:.85rem;color:var(--text-muted);line-height:1.6">
+      <ul style="margin:0;padding-left:1.2rem;font-size:.85rem;color:var(--text-muted);line-height:1.6;margin-bottom:.75rem">
         <li>Paste any public Spotify Playlist, Album, or Track URL and click <strong>Fetch Playlist Songs</strong>.</li>
         <li>Listen to 30-second audio previews directly in your browser.</li>
         <li>Click <strong>Download HQ Song</strong> on any track to download high-quality audio files.</li>
         <li>Use <strong>Download All Tracks</strong> to batch download the playlist.</li>
       </ul>
+      <p style="font-size:.75rem;color:var(--text-muted);opacity:.85;line-height:1.4">⚠️ <em>Warning: Downloads/fetching may occasionally fail due to Spotify rate limits or IP restrictions.</em></p>
     </div>
   `;
 }

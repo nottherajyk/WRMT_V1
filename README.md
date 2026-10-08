@@ -16,6 +16,7 @@
 - [Complete Tool Catalog](#-complete-tool-catalog)
   - [🖼️ Image Tools](#️-image-tools)
   - [📄 PDF Suite](#-pdf-suite)
+  - [🎙️ Audio & Speech Suite](#️-audio--speech-suite)
   - [📱 Social Media & Media Grabbers](#-social-media--media-grabbers)
   - [📝 Text & Data Utilities](#-text--data-utilities)
 - [Tech Stack](#-tech-stack)
@@ -113,6 +114,21 @@ A full-featured PDF powerhouse covering organization, conversion, page editing, 
 - **Translate PDF (`translate-pdf`)**: Multilingual document translation across 30+ spoken languages.
 - **PDF Metadata (`pdf-metadata`)**: Inspect, view, and edit embedded Dublin Core / XMP metadata tags.
 - **Acrobat Downloader (`acrobat-downloader`)**: Fetch public Adobe Acrobat shared assets.
+
+---
+
+### 🎙️ Audio & Speech Suite
+Client-side audio extraction, encoding, and AI-powered speech-to-text transcription:
+
+- **MP4 to MP3 Converter (`mp4-to-mp3`)**: Extract high-fidelity MP3 or WAV audio tracks from MP4, WebM, MOV, and MKV video files client-side. Features customizable bitrates (96 kbps to 320 kbps), volume boosting (50% to 200%), and interactive timestamp range trimming.
+- **MP3 to Text Transcriber (`mp3-to-text`)**: Transcribe speech from MP3, WAV, M4A, and FLAC audio files with segment-level timestamps. Multi-engine support including 100% private in-browser Whisper AI (Transformers.js), ultra-fast Cloud Whisper API (Groq/OpenAI), and Web Speech recognition. Exports clean transcripts across 6 formats:
+  - **Plain Text (`.txt`)**: Clean text transcript with optional timestamp toggle.
+  - **SubRip Subtitles (`.srt`)**: Standard subtitle format with microsecond timestamp blocks.
+  - **WebVTT (`.vtt`)**: Web standard video text track subtitles.
+  - **JSON (`.json`)**: Structured transcript data with metadata, word counts, and segment arrays.
+  - **Markdown (`.md`)**: Formatted document with properties table and blockquoted dialogue.
+  - **CSV / Excel (`.csv`)**: Tabular dataset with start/end timestamps, duration, and text.
+  - **Download All as ZIP (`.zip`)**: One-click archive bundling all 6 formats together.
 
 ---
 

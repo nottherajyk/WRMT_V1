@@ -13,7 +13,7 @@ export function navigateTo(path) {
 
 export function router() {
   const route = getRoute();
-  if (route === '/' || route === '' || ['/image', '/pdf', '/social', '/text'].includes(route)) {
+  if (route === '/' || route === '' || ['/image', '/pdf', '/audio', '/social', '/text'].includes(route)) {
     return renderHome();
   }
   if (route.startsWith('/tool/')) {
