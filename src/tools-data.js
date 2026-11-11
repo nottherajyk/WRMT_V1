@@ -13,6 +13,7 @@ const ICON_CROP          = svg('<path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18
 const ICON_INVERT        = svg('<circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/>');
 const ICON_KEY           = svg('<path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>');
 const ICON_BW            = svg('<circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="22"/>');
+const ICON_ENHANCE       = svg('<path d="M12 2l1.09 3.26L16.36 6l-3.27 1.09L12 10.36l-1.09-3.27L7.64 6l3.27-1.09L12 2z"/><path d="M18 12l.72 2.18L20.9 15l-2.18.72L18 17.9l-.72-2.18L15.1 15l2.18-.72L18 12z"/><path d="M6 14l.72 2.18L8.9 17l-2.18.72L6 19.9l-.72-2.18L3.1 17l2.18-.72L6 14z"/>');
 
 // ── PDF Tool Icons ──
 const ICON_DOC_CONVERT   = svg('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>');
@@ -91,6 +92,7 @@ export const tools = [
   { id:'jpg-to-png',       name:'JPG to PNG',            desc:'Convert JPG/JPEG Image to PNG Online.',                                  category:'image',  icon: ICON_IMAGE_CONVERT },
   { id:'image-to-base64',  name:'Image to BASE64',       desc:'Easily convert an image to BASE64 format online.',                      category:'image',  icon: ICON_KEY           },
   { id:'black-and-white',  name:'Black & White',         desc:'Easily convert an image to black and white online.',                    category:'image',  icon: ICON_BW            },
+  { id:'enhance-image',    name:'Enhance Image',         desc:'Improve image quality with sharpening, brightness, contrast and 2x upscale.', category:'image', icon: ICON_ENHANCE       },
 
   // ===== PDF TOOLS =====
   { id:'merge-pdf',        name:'Merge PDF',             desc:'Easily merge multiple PDFs into one in the order you want.',           category:'pdf', section:'Organize PDF', isWorkflow: true, icon: ICON_MERGE         },

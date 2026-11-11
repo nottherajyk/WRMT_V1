@@ -4,6 +4,7 @@ import { pdfToolHandler } from '../tools/pdf-tools.js';
 import { socialToolHandler } from '../tools/social-tools.js';
 import { textToolHandler } from '../tools/text-tools.js';
 import { audioToolHandler } from '../tools/audio-tools.js';
+import { enhanceToolHandler } from '../tools/image-enhance-tool.js';
 
 export function renderToolPage(toolId) {
   const tool = tools.find(t => t.id === toolId);
@@ -12,7 +13,8 @@ export function renderToolPage(toolId) {
   const catNames = { image: 'Image Tools', pdf: 'PDF Tools', audio: 'Audio Tools', social: 'Social Media', text: 'Text & Lists' };
 
   let toolContent = '';
-  if (tool.category === 'image') toolContent = imageToolHandler(tool);
+  if (tool.id === 'enhance-image') toolContent = enhanceToolHandler(tool);
+  else if (tool.category === 'image') toolContent = imageToolHandler(tool);
   else if (tool.category === 'pdf') toolContent = pdfToolHandler(tool);
   else if (tool.category === 'audio') toolContent = audioToolHandler(tool);
   else if (tool.category === 'social') toolContent = socialToolHandler(tool);
