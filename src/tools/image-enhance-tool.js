@@ -26,71 +26,83 @@ function renderEnhanceUI() {
         <div id="fileInfoArea"></div>
 
         <!-- Upscale Factor Selection -->
-        <div class="form-group" style="margin-top:1.25rem">
-          <label class="form-label" style="font-size:0.95rem;font-weight:800;display:flex;align-items:center;gap:0.4rem">
+        <div class="form-group" style="margin-top:0.75rem">
+          <label class="form-label" style="font-size:0.9rem;font-weight:800;display:flex;align-items:center;gap:0.4rem;margin-bottom:0.35rem">
             <span>🔍</span> Resolution Upscale
           </label>
-          <div class="upscale-selector" style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-top:0.4rem">
-            <button type="button" class="btn-upscale active" data-scale="2" style="padding:0.75rem 0.5rem;font-weight:900;font-size:1.05rem;border:3px solid #000;background:var(--accent,#ffcc00);color:#000;box-shadow:3px 3px 0 #000;cursor:pointer;border-radius:8px;transition:all 0.15s">2×</button>
-            <button type="button" class="btn-upscale" data-scale="3" style="padding:0.75rem 0.5rem;font-weight:900;font-size:1.05rem;border:3px solid #000;background:#fff;color:#000;box-shadow:3px 3px 0 #000;cursor:pointer;border-radius:8px;transition:all 0.15s">3×</button>
-            <button type="button" class="btn-upscale" data-scale="5" style="padding:0.75rem 0.5rem;font-weight:900;font-size:1.05rem;border:3px solid #000;background:#fff;color:#000;box-shadow:3px 3px 0 #000;cursor:pointer;border-radius:8px;transition:all 0.15s">5×</button>
+          <div class="upscale-selector" style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.4rem">
+            <button type="button" class="btn-upscale active" data-scale="2" style="padding:0.5rem 0.35rem;font-weight:900;font-size:0.95rem;border:2.5px solid #000;background:var(--accent,#ffcc00);color:#000;box-shadow:2px 2px 0 #000;cursor:pointer;border-radius:8px;transition:all 0.15s">2×</button>
+            <button type="button" class="btn-upscale" data-scale="3" style="padding:0.5rem 0.35rem;font-weight:900;font-size:0.95rem;border:2.5px solid #000;background:#fff;color:#000;box-shadow:2px 2px 0 #000;cursor:pointer;border-radius:8px;transition:all 0.15s">3×</button>
+            <button type="button" class="btn-upscale" data-scale="5" style="padding:0.5rem 0.35rem;font-weight:900;font-size:0.95rem;border:2.5px solid #000;background:#fff;color:#000;box-shadow:2px 2px 0 #000;cursor:pointer;border-radius:8px;transition:all 0.15s">5×</button>
           </div>
-          <span id="scaleDescription" style="display:block;margin-top:0.5rem;font-size:0.82rem;color:var(--text-muted);font-weight:600">2× Upscale (Double resolution + automatic enhancement)</span>
+          <span id="scaleDescription" style="display:block;margin-top:0.35rem;font-size:0.78rem;color:var(--text-muted);font-weight:600">2× Upscale (Double resolution + auto-enhancement)</span>
         </div>
 
         <!-- Automatic Adjustments Summary Card -->
-        <div class="auto-adjustments-card" style="margin-top:1rem;padding:0.9rem;border:2px dashed #000;border-radius:8px;background:rgba(0,0,0,0.03)">
-          <div style="font-size:0.85rem;font-weight:800;text-transform:uppercase;margin-bottom:0.6rem;display:flex;align-items:center;gap:0.4rem">
+        <div class="auto-adjustments-card" style="margin-top:0.75rem;padding:0.75rem;border:2px dashed #000;border-radius:8px;background:rgba(0,0,0,0.03)">
+          <div style="font-size:0.8rem;font-weight:800;text-transform:uppercase;margin-bottom:0.4rem;display:flex;align-items:center;gap:0.35rem">
             <span>✨</span> Auto-Adjustments Applied
           </div>
-          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.4rem;font-size:0.82rem;font-weight:600">
-            <li style="display:flex;align-items:center;gap:0.4rem">
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.3rem;font-size:0.76rem;font-weight:600">
+            <li style="display:flex;align-items:center;gap:0.35rem">
               <span style="color:#10b981;font-weight:900">✔</span> Auto-Exposure & Brightness Balance
             </li>
-            <li style="display:flex;align-items:center;gap:0.4rem">
+            <li style="display:flex;align-items:center;gap:0.35rem">
               <span style="color:#10b981;font-weight:900">✔</span> Dynamic Contrast & Histogram Stretch
             </li>
-            <li style="display:flex;align-items:center;gap:0.4rem">
+            <li style="display:flex;align-items:center;gap:0.35rem">
               <span style="color:#10b981;font-weight:900">✔</span> Intelligent Color Vibrance & Saturation
             </li>
-            <li style="display:flex;align-items:center;gap:0.4rem">
-              <span style="color:#10b981;font-weight:900">✔</span> Unsharp Mask Crisp Edge Sharpening
+            <li style="display:flex;align-items:center;gap:0.35rem">
+              <span style="color:#10b981;font-weight:900">✔</span> Unsharp Mask Edge Sharpening
             </li>
           </ul>
         </div>
 
         <!-- Download Action -->
-        <div class="actions-row" style="margin-top:auto;padding-top:1.25rem">
-          <button class="btn btn-primary" id="downloadEnhancedBtn" style="width:100%;display:flex;align-items:center;justify-content:center;gap:0.5rem;font-weight:900;padding:0.9rem 1rem">
+        <div class="actions-row" style="margin-top:auto;padding-top:1rem">
+          <button class="btn btn-primary" id="downloadEnhancedBtn" style="width:100%;display:flex;align-items:center;justify-content:center;gap:0.5rem;font-weight:900;padding:0.8rem 1rem">
             <span>💾</span> Download Enhanced Image
           </button>
         </div>
       </div>
 
-      <!-- Right side: Realtime Preview & Metrics -->
+      <!-- Right side: Realtime Before/After Split Comparison & Metrics -->
       <div class="compressor-preview-card">
-        <h3 style="font-family:'Fredoka', sans-serif;font-weight:900;font-size:1.2rem;border-bottom:3px solid #000;padding-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem">
-          <span>🖼️</span> Visual Comparison
-        </h3>
+        <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #000;padding-bottom:0.45rem">
+          <h3 style="font-family:'Fredoka', sans-serif;font-weight:900;font-size:1.15rem;display:flex;align-items:center;gap:0.45rem;margin:0">
+            <span>🖼️</span> Before & After Comparison
+          </h3>
+          <span style="font-size:0.75rem;font-weight:700;color:var(--text-muted);text-transform:uppercase">↔ Drag Slider</span>
+        </div>
 
-        <div class="comparison-container">
-          <!-- Original Box -->
-          <div class="comparison-box">
-            <span class="comparison-box-title">Original</span>
-            <div class="comparison-img-wrapper">
-              <img id="origPreviewImg" alt="Original Image" />
-            </div>
+        <!-- Single Split Comparison Viewer -->
+        <div class="split-compare-viewer" id="splitCompareViewer" style="--split-pos: 50%;">
+          <!-- Base layer: Enhanced Image Canvas (Bottom/Right) -->
+          <div class="split-layer-base">
+            <canvas id="enhancedCanvas"></canvas>
           </div>
 
-          <!-- Enhanced Box -->
-          <div class="comparison-box compressed-box">
-            <span class="comparison-box-title" id="enhancedBoxTitle">Enhanced (2×)</span>
-            <div class="comparison-img-wrapper">
-              <div class="comp-loading-overlay" id="enhanceLoadingOverlay">
-                <div class="spinner-brutalist"></div>
-              </div>
-              <canvas id="enhancedCanvas" style="max-width:100%;max-height:100%;object-fit:contain"></canvas>
-            </div>
+          <!-- Clipped layer: Original Image (Top/Left) -->
+          <div class="split-layer-clipped">
+            <img id="origPreviewImg" alt="Original Image (Before)" />
+          </div>
+
+          <!-- Divider vertical bar & handle -->
+          <div class="split-divider-line">
+            <div class="split-handle-pill">◂ ▸</div>
+          </div>
+
+          <!-- Badges -->
+          <div class="split-badge-before">◀ Before (Orig)</div>
+          <div class="split-badge-after">After (Enhanced) ▶</div>
+
+          <!-- Interactive Range Slider Overlay for Mouse & Touch -->
+          <input type="range" min="0" max="100" value="50" class="split-range-input" id="splitRangeInput" aria-label="Before and after comparison slider" />
+
+          <!-- Loading Spinner -->
+          <div class="comp-loading-overlay" id="enhanceLoadingOverlay">
+            <div class="spinner-brutalist"></div>
           </div>
         </div>
 
@@ -129,7 +141,37 @@ function setupEnhanceTool() {
   const zone = document.getElementById('imgEnhance');
   const input = document.getElementById('imgEnhanceInput');
   const scaleDesc = document.getElementById('scaleDescription');
-  const enhancedTitle = document.getElementById('enhancedBoxTitle');
+  const splitViewer = document.getElementById('splitCompareViewer');
+  const splitRange = document.getElementById('splitRangeInput');
+
+  // Before / After Slider Control (handles both range input and direct pointer moves)
+  if (splitRange && splitViewer) {
+    const updateSplit = (val) => {
+      splitViewer.style.setProperty('--split-pos', `${val}%`);
+    };
+
+    splitRange.addEventListener('input', (e) => {
+      updateSplit(e.target.value);
+    });
+
+    // Support smooth pointer dragging across the container
+    let isDragging = false;
+    const handlePointerMove = (e) => {
+      if (!isDragging) return;
+      const rect = splitViewer.getBoundingClientRect();
+      const x = (e.clientX || (e.touches && e.touches[0]?.clientX)) - rect.left;
+      const pct = Math.max(0, Math.min(100, (x / rect.width) * 100));
+      updateSplit(pct);
+      if (splitRange) splitRange.value = pct;
+    };
+
+    splitViewer.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      handlePointerMove(e);
+    });
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('pointerup', () => { isDragging = false; });
+  }
 
   // Scale buttons
   const scaleButtons = document.querySelectorAll('.btn-upscale');
@@ -148,9 +190,6 @@ function setupEnhanceTool() {
 
       if (scaleDesc) {
         scaleDesc.textContent = `${scale}× Upscale (${scale}× resolution + automatic enhancement)`;
-      }
-      if (enhancedTitle) {
-        enhancedTitle.textContent = `Enhanced (${scale}×)`;
       }
 
       runAutoEnhancement();
@@ -189,6 +228,10 @@ function setupEnhanceTool() {
               <button class="file-info-remove" type="button" aria-label="Remove File">&times;</button>
             </div>`;
         }
+
+        // Reset split slider to 50%
+        if (splitViewer) splitViewer.style.setProperty('--split-pos', '50%');
+        if (splitRange) splitRange.value = 50;
 
         runAutoEnhancement();
       };
@@ -232,7 +275,9 @@ function setupEnhanceTool() {
           b.style.background = '#fff';
         }
       });
-      if (enhancedTitle) enhancedTitle.textContent = 'Enhanced (2×)';
+
+      if (splitViewer) splitViewer.style.setProperty('--split-pos', '50%');
+      if (splitRange) splitRange.value = 50;
 
       if (zone) zone.style.display = 'flex';
     };
@@ -269,7 +314,6 @@ function setupEnhanceTool() {
       const targetH = srcH * scale;
 
       // ── Step 1: Analyze Original Image Luminance, Contrast & Saturation ──
-      // Sample original image at reasonable resolution for fast histogram analysis
       const sampleCanvas = document.createElement('canvas');
       const sampleW = Math.min(300, srcW);
       const sampleH = Math.min(300, srcH);
@@ -301,7 +345,6 @@ function setupEnhanceTool() {
       const meanLum = lumSum / pixelCount;
       const meanSat = satSum / pixelCount;
 
-      // Standard deviation of luminance for contrast determination
       let varianceSum = 0;
       for (let p = 0; p < pixelCount; p++) {
         const diff = lumValues[p] - meanLum;
@@ -310,9 +353,6 @@ function setupEnhanceTool() {
       const stdDevLum = Math.sqrt(varianceSum / pixelCount);
 
       // ── Step 2: Compute Optimal Auto-Adjustment Parameters ──
-      // Ideal target luminance is ~125
-      // If image is dark (meanLum < 110), gently boost brightness
-      // If image is washed out (meanLum > 145), gently tone down
       let autoBrightness = 0;
       if (meanLum < 110) {
         autoBrightness = Math.min(35, (125 - meanLum) * 0.45);
@@ -320,9 +360,6 @@ function setupEnhanceTool() {
         autoBrightness = -Math.min(25, (meanLum - 140) * 0.35);
       }
 
-      // Dynamic Contrast:
-      // If standard deviation is low (flat/dull image, stdDev < 45), increase contrast (+18 to +35)
-      // If standard deviation is normal/high, provide a refined crisp pop (+10 to +18)
       let autoContrast = 15;
       if (stdDevLum < 45) {
         autoContrast = Math.min(35, 15 + (45 - stdDevLum) * 0.7);
@@ -330,9 +367,6 @@ function setupEnhanceTool() {
         autoContrast = 8;
       }
 
-      // Saturation:
-      // If saturation is low (meanSat < 0.25), boost color vibrance (+20 to +30%)
-      // If already saturated, apply light clarity boost (+8 to +12%)
       let autoSaturation = 15;
       if (meanSat < 0.22) {
         autoSaturation = 25;
@@ -340,8 +374,6 @@ function setupEnhanceTool() {
         autoSaturation = 5;
       }
 
-      // Sharpening strength: scale-aware adaptive unsharp mask
-      // 2x gets ~35% unsharp mask, 3x gets ~45%, 5x gets ~55%
       const autoSharpness = Math.min(65, 30 + scale * 6);
 
       // ── Step 3: High-Quality Upscale Render ──
@@ -350,7 +382,6 @@ function setupEnhanceTool() {
       workCanvas.height = targetH;
       const workCtx = workCanvas.getContext('2d');
 
-      // Use high quality image smoothing during upscaling
       workCtx.imageSmoothingEnabled = true;
       workCtx.imageSmoothingQuality = 'high';
       workCtx.drawImage(img, 0, 0, targetW, targetH);
@@ -359,13 +390,8 @@ function setupEnhanceTool() {
       const imgData = workCtx.getImageData(0, 0, targetW, targetH);
       const data = imgData.data;
 
-      // Brightness factor
       const bOffset = autoBrightness * 2.55;
-
-      // Contrast factor
       const cFactor = (259 * (autoContrast + 255)) / (255 * (259 - autoContrast));
-
-      // Saturation factor
       const satFactor = autoSaturation / 100;
 
       for (let i = 0; i < data.length; i += 4) {
@@ -373,21 +399,18 @@ function setupEnhanceTool() {
         let g = data[i + 1];
         let b = data[i + 2];
 
-        // Apply auto-brightness
         if (autoBrightness !== 0) {
           r += bOffset;
           g += bOffset;
           b += bOffset;
         }
 
-        // Apply auto-contrast
         if (autoContrast !== 0) {
           r = cFactor * (r - 128) + 128;
           g = cFactor * (g - 128) + 128;
           b = cFactor * (b - 128) + 128;
         }
 
-        // Apply auto-saturation
         if (autoSaturation !== 0) {
           const gray = 0.2989 * r + 0.5870 * g + 0.1140 * b;
           r = gray + (r - gray) * (1 + satFactor);
