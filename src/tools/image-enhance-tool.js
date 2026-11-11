@@ -12,7 +12,7 @@ function renderEnhanceUI() {
   return `
     <!-- Drop Zone Section (Initially Visible, hides when image loaded) -->
     <div id="enhance-initial-state">
-      ${renderDropZone('imgEnhance', '.jpg,.jpeg,.png,.webp', 'Drop your image to enhance')}
+      ${renderDropZone('imgEnhance', '.jpg,.jpeg,.png,.webp', 'Drop your image to auto-enhance & upscale')}
     </div>
 
     <div id="enhance-active-state" class="compressor-workspace" style="display:none">
@@ -20,101 +20,106 @@ function renderEnhanceUI() {
       <div class="compressor-controls-card">
         <div class="live-indicator">
           <span class="live-indicator-dot"></span>
-          <span>LIVE ENHANCEMENT WORKSPACE</span>
+          <span>AUTO ENHANCER & UPSCALER</span>
         </div>
 
         <div id="fileInfoArea"></div>
 
-        <!-- Sharpness -->
-        <div class="form-group" style="margin-top:1rem">
-          <label class="form-label">Sharpness (Unsharp Mask)</label>
-          <input type="range" class="range-slider" id="sharpnessSlider" min="0" max="100" value="0" />
-          <span id="sharpnessVal" style="font-size:.82rem;color:var(--text-muted)">0</span>
+        <!-- Upscale Factor Selection -->
+        <div class="form-group" style="margin-top:0.75rem">
+          <label class="form-label" style="font-size:0.9rem;font-weight:800;display:flex;align-items:center;gap:0.4rem;margin-bottom:0.35rem">
+            <span>🔍</span> Resolution Upscale
+          </label>
+          <div class="upscale-selector" style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.4rem">
+            <button type="button" class="btn-upscale active" data-scale="2" style="padding:0.5rem 0.35rem;font-weight:900;font-size:0.95rem;border:2.5px solid #000;background:var(--accent,#ffcc00);color:#000;box-shadow:2px 2px 0 #000;cursor:pointer;border-radius:8px;transition:all 0.15s">2×</button>
+            <button type="button" class="btn-upscale" data-scale="3" style="padding:0.5rem 0.35rem;font-weight:900;font-size:0.95rem;border:2.5px solid #000;background:#fff;color:#000;box-shadow:2px 2px 0 #000;cursor:pointer;border-radius:8px;transition:all 0.15s">3×</button>
+            <button type="button" class="btn-upscale" data-scale="5" style="padding:0.5rem 0.35rem;font-weight:900;font-size:0.95rem;border:2.5px solid #000;background:#fff;color:#000;box-shadow:2px 2px 0 #000;cursor:pointer;border-radius:8px;transition:all 0.15s">5×</button>
+          </div>
+          <span id="scaleDescription" style="display:block;margin-top:0.35rem;font-size:0.78rem;color:var(--text-muted);font-weight:600">2× Upscale (Double resolution + auto-enhancement)</span>
         </div>
 
-        <!-- Brightness -->
-        <div class="form-group">
-          <label class="form-label">Brightness</label>
-          <input type="range" class="range-slider" id="brightnessSlider" min="-100" max="100" value="0" />
-          <span id="brightnessVal" style="font-size:.82rem;color:var(--text-muted)">0</span>
+        <!-- Automatic Adjustments Summary Card -->
+        <div class="auto-adjustments-card" style="margin-top:0.75rem;padding:0.75rem;border:2px dashed #000;border-radius:8px;background:rgba(0,0,0,0.03)">
+          <div style="font-size:0.8rem;font-weight:800;text-transform:uppercase;margin-bottom:0.4rem;display:flex;align-items:center;gap:0.35rem">
+            <span>✨</span> Auto-Adjustments Applied
+          </div>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.3rem;font-size:0.76rem;font-weight:600">
+            <li style="display:flex;align-items:center;gap:0.35rem">
+              <span style="color:#10b981;font-weight:900">✔</span> Auto-Exposure & Brightness Balance
+            </li>
+            <li style="display:flex;align-items:center;gap:0.35rem">
+              <span style="color:#10b981;font-weight:900">✔</span> Dynamic Contrast & Histogram Stretch
+            </li>
+            <li style="display:flex;align-items:center;gap:0.35rem">
+              <span style="color:#10b981;font-weight:900">✔</span> Intelligent Color Vibrance & Saturation
+            </li>
+            <li style="display:flex;align-items:center;gap:0.35rem">
+              <span style="color:#10b981;font-weight:900">✔</span> Unsharp Mask Edge Sharpening
+            </li>
+          </ul>
         </div>
 
-        <!-- Contrast -->
-        <div class="form-group">
-          <label class="form-label">Contrast</label>
-          <input type="range" class="range-slider" id="contrastSlider" min="-100" max="100" value="0" />
-          <span id="contrastVal" style="font-size:.82rem;color:var(--text-muted)">0</span>
-        </div>
-
-        <!-- Saturation -->
-        <div class="form-group">
-          <label class="form-label">Saturation</label>
-          <input type="range" class="range-slider" id="saturationSlider" min="-100" max="100" value="0" />
-          <span id="saturationVal" style="font-size:.82rem;color:var(--text-muted)">0</span>
-        </div>
-
-        <!-- Upscale 2x -->
-        <div class="form-group" style="display:flex;align-items:center;gap:0.75rem">
-          <input type="checkbox" id="upscaleCheckbox" style="width:18px;height:18px;cursor:pointer" />
-          <label for="upscaleCheckbox" class="form-label" style="margin:0;cursor:pointer">Upscale 2× (double resolution)</label>
-        </div>
-
-        <!-- Reset Controls -->
-        <div class="actions-row" style="margin-top:0.5rem">
-          <button class="btn btn-secondary" id="resetControlsBtn" style="width:100%;display:flex;align-items:center;justify-content:center;gap:0.5rem">
-            <span>🔄</span> Reset All Controls
-          </button>
-        </div>
-
-        <!-- Download -->
-        <div class="actions-row" style="margin-top:auto">
-          <button class="btn btn-primary" id="downloadEnhancedBtn" style="width:100%;display:flex;align-items:center;justify-content:center;gap:0.5rem">
+        <!-- Download Action -->
+        <div class="actions-row" style="margin-top:auto;padding-top:1rem">
+          <button class="btn btn-primary" id="downloadEnhancedBtn" style="width:100%;display:flex;align-items:center;justify-content:center;gap:0.5rem;font-weight:900;padding:0.8rem 1rem">
             <span>💾</span> Download Enhanced Image
           </button>
         </div>
       </div>
 
-      <!-- Right side: Realtime Preview & Metrics -->
+      <!-- Right side: Realtime Before/After Split Comparison & Metrics -->
       <div class="compressor-preview-card">
-        <h3 style="font-family:'Fredoka', sans-serif;font-weight:900;font-size:1.2rem;border-bottom:3px solid #000;padding-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem">
-          <span>🖼️</span> Visual Comparison
-        </h3>
+        <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #000;padding-bottom:0.45rem">
+          <h3 style="font-family:'Fredoka', sans-serif;font-weight:900;font-size:1.15rem;display:flex;align-items:center;gap:0.45rem;margin:0">
+            <span>🖼️</span> Before & After Comparison
+          </h3>
+          <span style="font-size:0.75rem;font-weight:700;color:var(--text-muted);text-transform:uppercase">↔ Drag Slider</span>
+        </div>
 
-        <div class="comparison-container">
-          <!-- Original Box -->
-          <div class="comparison-box">
-            <span class="comparison-box-title">Original</span>
-            <div class="comparison-img-wrapper">
-              <img id="origPreviewImg" alt="Original Image" />
-            </div>
+        <!-- Single Split Comparison Viewer -->
+        <div class="split-compare-viewer" id="splitCompareViewer" style="--split-pos: 50%;">
+          <!-- Base layer: Enhanced Image Canvas (Bottom/Right) -->
+          <div class="split-layer-base">
+            <canvas id="enhancedCanvas"></canvas>
           </div>
 
-          <!-- Enhanced Box -->
-          <div class="comparison-box compressed-box">
-            <span class="comparison-box-title">Enhanced</span>
-            <div class="comparison-img-wrapper">
-              <div class="comp-loading-overlay" id="enhanceLoadingOverlay">
-                <div class="spinner-brutalist"></div>
-              </div>
-              <canvas id="enhancedCanvas" style="max-width:100%;max-height:100%;object-fit:contain"></canvas>
-            </div>
+          <!-- Clipped layer: Original Image (Top/Left) -->
+          <div class="split-layer-clipped">
+            <img id="origPreviewImg" alt="Original Image (Before)" />
+          </div>
+
+          <!-- Divider vertical bar & handle -->
+          <div class="split-divider-line">
+            <div class="split-handle-pill">◂ ▸</div>
+          </div>
+
+          <!-- Badges -->
+          <div class="split-badge-before">◀ Before (Orig)</div>
+          <div class="split-badge-after">After (Enhanced) ▶</div>
+
+          <!-- Interactive Range Slider Overlay for Mouse & Touch -->
+          <input type="range" min="0" max="100" value="50" class="split-range-input" id="splitRangeInput" aria-label="Before and after comparison slider" />
+
+          <!-- Loading Spinner -->
+          <div class="comp-loading-overlay" id="enhanceLoadingOverlay">
+            <div class="spinner-brutalist"></div>
           </div>
         </div>
 
         <!-- Live Metrics Panel -->
         <div class="live-metrics-panel">
           <div class="metric-item">
-            <span class="metric-label">Original</span>
+            <span class="metric-label">Original Size</span>
             <span class="metric-value" id="metric-original-size">--</span>
           </div>
 
           <div class="metric-item">
-            <span class="metric-label">Dimensions</span>
+            <span class="metric-label">Original Dims</span>
             <span class="metric-value" id="metric-dimensions">--</span>
           </div>
 
           <div class="metric-item">
-            <span class="metric-label">Enhanced</span>
+            <span class="metric-label">Enhanced Dims</span>
             <span class="metric-value highlight-green" id="metric-enhanced-dims">--</span>
           </div>
         </div>
@@ -130,59 +135,66 @@ function setupEnhanceTool() {
   let currentDataURL = null;
   let enhanceTimeout = null;
   let latestEnhancedBlob = null;
-  // Cache the loaded original Image object to avoid reloading on every update
   let cachedOriginalImg = null;
+  let currentScale = 2; // Default upscale 2x
 
   const zone = document.getElementById('imgEnhance');
   const input = document.getElementById('imgEnhanceInput');
+  const scaleDesc = document.getElementById('scaleDescription');
+  const splitViewer = document.getElementById('splitCompareViewer');
+  const splitRange = document.getElementById('splitRangeInput');
 
-  // Slider references
-  const sharpnessSlider = document.getElementById('sharpnessSlider');
-  const brightnessSlider = document.getElementById('brightnessSlider');
-  const contrastSlider = document.getElementById('contrastSlider');
-  const saturationSlider = document.getElementById('saturationSlider');
-  const upscaleCheckbox = document.getElementById('upscaleCheckbox');
+  // Before / After Slider Control (handles both range input and direct pointer moves)
+  if (splitRange && splitViewer) {
+    const updateSplit = (val) => {
+      splitViewer.style.setProperty('--split-pos', `${val}%`);
+    };
 
-  const sharpnessVal = document.getElementById('sharpnessVal');
-  const brightnessVal = document.getElementById('brightnessVal');
-  const contrastVal = document.getElementById('contrastVal');
-  const saturationVal = document.getElementById('saturationVal');
+    splitRange.addEventListener('input', (e) => {
+      updateSplit(e.target.value);
+    });
 
-  // Wire up sliders for live feedback & live enhancement
-  const sliders = [
-    { el: sharpnessSlider, display: sharpnessVal },
-    { el: brightnessSlider, display: brightnessVal },
-    { el: contrastSlider, display: contrastVal },
-    { el: saturationSlider, display: saturationVal },
-  ];
+    // Support smooth pointer dragging across the container
+    let isDragging = false;
+    const handlePointerMove = (e) => {
+      if (!isDragging) return;
+      const rect = splitViewer.getBoundingClientRect();
+      const x = (e.clientX || (e.touches && e.touches[0]?.clientX)) - rect.left;
+      const pct = Math.max(0, Math.min(100, (x / rect.width) * 100));
+      updateSplit(pct);
+      if (splitRange) splitRange.value = pct;
+    };
 
-  sliders.forEach(({ el, display }) => {
-    if (el && display) {
-      el.addEventListener('input', () => {
-        display.textContent = el.value;
-        updateRealtimeEnhancement();
+    splitViewer.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      handlePointerMove(e);
+    });
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('pointerup', () => { isDragging = false; });
+  }
+
+  // Scale buttons
+  const scaleButtons = document.querySelectorAll('.btn-upscale');
+  scaleButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const scale = parseInt(btn.dataset.scale);
+      if (scale === currentScale) return;
+
+      currentScale = scale;
+      scaleButtons.forEach(b => {
+        b.classList.remove('active');
+        b.style.background = '#fff';
       });
-    }
+      btn.classList.add('active');
+      btn.style.background = 'var(--accent, #ffcc00)';
+
+      if (scaleDesc) {
+        scaleDesc.textContent = `${scale}× Upscale (${scale}× resolution + automatic enhancement)`;
+      }
+
+      runAutoEnhancement();
+    });
   });
-
-  if (upscaleCheckbox) {
-    upscaleCheckbox.addEventListener('change', () => {
-      updateRealtimeEnhancement();
-    });
-  }
-
-  // Reset controls button
-  const resetBtn = document.getElementById('resetControlsBtn');
-  if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-      if (sharpnessSlider) { sharpnessSlider.value = 0; sharpnessVal.textContent = '0'; }
-      if (brightnessSlider) { brightnessSlider.value = 0; brightnessVal.textContent = '0'; }
-      if (contrastSlider) { contrastSlider.value = 0; contrastVal.textContent = '0'; }
-      if (saturationSlider) { saturationSlider.value = 0; saturationVal.textContent = '0'; }
-      if (upscaleCheckbox) { upscaleCheckbox.checked = false; }
-      updateRealtimeEnhancement();
-    });
-  }
 
   // File handler
   function handleImageFile(files) {
@@ -201,11 +213,9 @@ function setupEnhanceTool() {
       if (active) active.style.display = '';
       if (origImg) origImg.src = currentDataURL;
 
-      // Pre-cache the original Image object
       const img = new Image();
       img.onload = () => {
         cachedOriginalImg = img;
-        // Show file info
         const infoArea = document.getElementById('fileInfoArea');
         if (infoArea) {
           infoArea.innerHTML = `
@@ -219,19 +229,23 @@ function setupEnhanceTool() {
             </div>`;
         }
 
-        // Run initial enhancement preview
-        updateRealtimeEnhancement();
+        // Reset split slider to 50%
+        if (splitViewer) splitViewer.style.setProperty('--split-pos', '50%');
+        if (splitRange) splitRange.value = 50;
+
+        runAutoEnhancement();
       };
       img.src = currentDataURL;
     };
     reader.readAsDataURL(currentFile);
 
-    // Expose instance-specific reset function
+    // Reset function
     window.activeImageReset = () => {
       currentFile = null;
       currentDataURL = null;
       latestEnhancedBlob = null;
       cachedOriginalImg = null;
+      currentScale = 2;
       if (input) input.value = '';
 
       const infoArea = document.getElementById('fileInfoArea');
@@ -251,12 +265,19 @@ function setupEnhanceTool() {
       if (initial) initial.style.display = '';
       if (activeState) activeState.style.display = 'none';
 
-      // Reset sliders
-      if (sharpnessSlider) { sharpnessSlider.value = 0; sharpnessVal.textContent = '0'; }
-      if (brightnessSlider) { brightnessSlider.value = 0; brightnessVal.textContent = '0'; }
-      if (contrastSlider) { contrastSlider.value = 0; contrastVal.textContent = '0'; }
-      if (saturationSlider) { saturationSlider.value = 0; saturationVal.textContent = '0'; }
-      if (upscaleCheckbox) upscaleCheckbox.checked = false;
+      // Reset scale buttons
+      scaleButtons.forEach(b => {
+        if (parseInt(b.dataset.scale) === 2) {
+          b.classList.add('active');
+          b.style.background = 'var(--accent, #ffcc00)';
+        } else {
+          b.classList.remove('active');
+          b.style.background = '#fff';
+        }
+      });
+
+      if (splitViewer) splitViewer.style.setProperty('--split-pos', '50%');
+      if (splitRange) splitRange.value = 50;
 
       if (zone) zone.style.display = 'flex';
     };
@@ -275,8 +296,8 @@ function setupEnhanceTool() {
     }
   }
 
-  // ===== REALTIME ENHANCEMENT =====
-  function updateRealtimeEnhancement() {
+  // ===== AUTOMATIC ENHANCEMENT & UPSCALE ENGINE =====
+  function runAutoEnhancement() {
     if (!currentFile || !currentDataURL || !cachedOriginalImg) return;
 
     const loader = document.getElementById('enhanceLoadingOverlay');
@@ -284,90 +305,134 @@ function setupEnhanceTool() {
 
     clearTimeout(enhanceTimeout);
     enhanceTimeout = setTimeout(() => {
-      const sharpness = parseInt(sharpnessSlider?.value || 0);
-      const brightness = parseInt(brightnessSlider?.value || 0);
-      const contrast = parseInt(contrastSlider?.value || 0);
-      const saturation = parseInt(saturationSlider?.value || 0);
-      const upscale = upscaleCheckbox?.checked || false;
-
       const img = cachedOriginalImg;
-      let w = img.naturalWidth;
-      let h = img.naturalHeight;
+      const srcW = img.naturalWidth;
+      const srcH = img.naturalHeight;
 
-      if (upscale) {
-        w *= 2;
-        h *= 2;
+      const scale = currentScale; // 2, 3, or 5
+      const targetW = srcW * scale;
+      const targetH = srcH * scale;
+
+      // ── Step 1: Analyze Original Image Luminance, Contrast & Saturation ──
+      const sampleCanvas = document.createElement('canvas');
+      const sampleW = Math.min(300, srcW);
+      const sampleH = Math.min(300, srcH);
+      sampleCanvas.width = sampleW;
+      sampleCanvas.height = sampleH;
+      const sampleCtx = sampleCanvas.getContext('2d');
+      sampleCtx.drawImage(img, 0, 0, sampleW, sampleH);
+      const sampleData = sampleCtx.getImageData(0, 0, sampleW, sampleH).data;
+
+      let lumSum = 0;
+      let satSum = 0;
+      const pixelCount = sampleW * sampleH;
+      const lumValues = new Float32Array(pixelCount);
+
+      for (let i = 0, p = 0; i < sampleData.length; i += 4, p++) {
+        const r = sampleData[i];
+        const g = sampleData[i + 1];
+        const b = sampleData[i + 2];
+        const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+        lumValues[p] = lum;
+        lumSum += lum;
+
+        const maxC = Math.max(r, g, b);
+        const minC = Math.min(r, g, b);
+        const sat = maxC === 0 ? 0 : (maxC - minC) / maxC;
+        satSum += sat;
       }
 
-      // Working canvas for pixel manipulation
+      const meanLum = lumSum / pixelCount;
+      const meanSat = satSum / pixelCount;
+
+      let varianceSum = 0;
+      for (let p = 0; p < pixelCount; p++) {
+        const diff = lumValues[p] - meanLum;
+        varianceSum += diff * diff;
+      }
+      const stdDevLum = Math.sqrt(varianceSum / pixelCount);
+
+      // ── Step 2: Compute Optimal Auto-Adjustment Parameters ──
+      let autoBrightness = 0;
+      if (meanLum < 110) {
+        autoBrightness = Math.min(35, (125 - meanLum) * 0.45);
+      } else if (meanLum > 150) {
+        autoBrightness = -Math.min(25, (meanLum - 140) * 0.35);
+      }
+
+      let autoContrast = 15;
+      if (stdDevLum < 45) {
+        autoContrast = Math.min(35, 15 + (45 - stdDevLum) * 0.7);
+      } else if (stdDevLum > 75) {
+        autoContrast = 8;
+      }
+
+      let autoSaturation = 15;
+      if (meanSat < 0.22) {
+        autoSaturation = 25;
+      } else if (meanSat > 0.5) {
+        autoSaturation = 5;
+      }
+
+      const autoSharpness = Math.min(65, 30 + scale * 6);
+
+      // ── Step 3: High-Quality Upscale Render ──
       const workCanvas = document.createElement('canvas');
-      workCanvas.width = w;
-      workCanvas.height = h;
+      workCanvas.width = targetW;
+      workCanvas.height = targetH;
       const workCtx = workCanvas.getContext('2d');
 
-      // Draw original (upscaled via bilinear interpolation — the canvas default)
       workCtx.imageSmoothingEnabled = true;
       workCtx.imageSmoothingQuality = 'high';
-      workCtx.drawImage(img, 0, 0, w, h);
+      workCtx.drawImage(img, 0, 0, targetW, targetH);
 
-      // Get pixel data for manipulation
-      const imageData = workCtx.getImageData(0, 0, w, h);
-      const data = imageData.data;
+      // ── Step 4: Apply Automatic Pixel Adjustments ──
+      const imgData = workCtx.getImageData(0, 0, targetW, targetH);
+      const data = imgData.data;
 
-      // --- Apply Brightness ---
-      if (brightness !== 0) {
-        const b = brightness * 2.55; // map -100..+100 to roughly -255..+255
-        for (let i = 0; i < data.length; i += 4) {
-          data[i]     = clamp(data[i] + b);
-          data[i + 1] = clamp(data[i + 1] + b);
-          data[i + 2] = clamp(data[i + 2] + b);
+      const bOffset = autoBrightness * 2.55;
+      const cFactor = (259 * (autoContrast + 255)) / (255 * (259 - autoContrast));
+      const satFactor = autoSaturation / 100;
+
+      for (let i = 0; i < data.length; i += 4) {
+        let r = data[i];
+        let g = data[i + 1];
+        let b = data[i + 2];
+
+        if (autoBrightness !== 0) {
+          r += bOffset;
+          g += bOffset;
+          b += bOffset;
         }
-      }
 
-      // --- Apply Contrast ---
-      if (contrast !== 0) {
-        const factor = (259 * (contrast + 255)) / (255 * (259 - contrast));
-        for (let i = 0; i < data.length; i += 4) {
-          data[i]     = clamp(factor * (data[i] - 128) + 128);
-          data[i + 1] = clamp(factor * (data[i + 1] - 128) + 128);
-          data[i + 2] = clamp(factor * (data[i + 2] - 128) + 128);
+        if (autoContrast !== 0) {
+          r = cFactor * (r - 128) + 128;
+          g = cFactor * (g - 128) + 128;
+          b = cFactor * (b - 128) + 128;
         }
-      }
 
-      // --- Apply Saturation ---
-      if (saturation !== 0) {
-        const sat = saturation / 100; // -1 to +1
-        for (let i = 0; i < data.length; i += 4) {
-          const r = data[i], g = data[i + 1], b = data[i + 2];
+        if (autoSaturation !== 0) {
           const gray = 0.2989 * r + 0.5870 * g + 0.1140 * b;
-          if (sat > 0) {
-            // Increase saturation
-            data[i]     = clamp(gray + (r - gray) * (1 + sat));
-            data[i + 1] = clamp(gray + (g - gray) * (1 + sat));
-            data[i + 2] = clamp(gray + (b - gray) * (1 + sat));
-          } else {
-            // Decrease saturation (lerp toward gray)
-            const t = 1 + sat; // 0 to 1
-            data[i]     = clamp(gray + (r - gray) * t);
-            data[i + 1] = clamp(gray + (g - gray) * t);
-            data[i + 2] = clamp(gray + (b - gray) * t);
-          }
+          r = gray + (r - gray) * (1 + satFactor);
+          g = gray + (g - gray) * (1 + satFactor);
+          b = gray + (b - gray) * (1 + satFactor);
         }
+
+        data[i]     = clamp(r);
+        data[i + 1] = clamp(g);
+        data[i + 2] = clamp(b);
       }
 
-      // Put modified data back
-      workCtx.putImageData(imageData, 0, 0);
+      workCtx.putImageData(imgData, 0, 0);
 
-      // --- Apply Sharpness (Unsharp Mask via convolution) ---
-      if (sharpness > 0) {
-        applyUnsharpMask(workCtx, w, h, sharpness);
-      }
+      // ── Step 5: Adaptive Unsharp Mask for Crisp Upscaled Edges ──
+      applyUnsharpMask(workCtx, targetW, targetH, autoSharpness);
 
-      // Draw to visible canvas
+      // ── Step 6: Render to Visible Comparison Canvas ──
       const displayCanvas = document.getElementById('enhancedCanvas');
       if (displayCanvas) {
-        displayCanvas.width = w;
-        displayCanvas.height = h;
+        displayCanvas.width = targetW;
+        displayCanvas.height = targetH;
         const displayCtx = displayCanvas.getContext('2d');
         displayCtx.drawImage(workCanvas, 0, 0);
       }
@@ -378,10 +443,10 @@ function setupEnhanceTool() {
       const enhDimsEl = document.getElementById('metric-enhanced-dims');
 
       if (origSizeEl) origSizeEl.textContent = formatBytes(currentFile.size);
-      if (dimsEl) dimsEl.textContent = `${img.naturalWidth} × ${img.naturalHeight}`;
-      if (enhDimsEl) enhDimsEl.textContent = `${w} × ${h}`;
+      if (dimsEl) dimsEl.textContent = `${srcW} × ${srcH}`;
+      if (enhDimsEl) enhDimsEl.textContent = `${targetW} × ${targetH} (${scale}×)`;
 
-      // Generate blob for download
+      // Generate blob for instant download
       workCanvas.toBlob((blob) => {
         if (blob) {
           latestEnhancedBlob = blob;
@@ -391,18 +456,13 @@ function setupEnhanceTool() {
     }, 150);
   }
 
-  // ===== UNSHARP MASK (convolution-based sharpening) =====
+  // ===== UNSHARP MASK (3x3 Gaussian Convolution Edge Enhancement) =====
   function applyUnsharpMask(ctx, w, h, amount) {
-    // amount: 0–100, controls intensity of the sharpening
-    const strength = amount / 100; // 0.0 – 1.0
-
+    const strength = amount / 100;
     const src = ctx.getImageData(0, 0, w, h);
     const srcData = src.data;
 
-    // Create a blurred copy using a 3×3 Gaussian approximation kernel
     const blurred = new Float32Array(srcData.length);
-
-    // Gaussian-like 3×3 kernel: [1 2 1; 2 4 2; 1 2 1] / 16
     const kernel = [1, 2, 1, 2, 4, 2, 1, 2, 1];
     const kernelSum = 16;
 
@@ -429,20 +489,18 @@ function setupEnhanceTool() {
       }
     }
 
-    // Unsharp mask: result = original + strength * (original - blurred)
     const output = ctx.createImageData(w, h);
     const outData = output.data;
     for (let i = 0; i < srcData.length; i += 4) {
       outData[i]     = clamp(srcData[i]     + strength * (srcData[i]     - blurred[i]));
       outData[i + 1] = clamp(srcData[i + 1] + strength * (srcData[i + 1] - blurred[i + 1]));
       outData[i + 2] = clamp(srcData[i + 2] + strength * (srcData[i + 2] - blurred[i + 2]));
-      outData[i + 3] = srcData[i + 3]; // preserve alpha
+      outData[i + 3] = srcData[i + 3];
     }
 
     ctx.putImageData(output, 0, 0);
   }
 
-  // ===== UTILITY =====
   function clamp(val) {
     return Math.max(0, Math.min(255, Math.round(val)));
   }
@@ -462,9 +520,9 @@ function setupEnhanceTool() {
   if (downloadBtn) {
     downloadBtn.addEventListener('click', () => {
       if (latestEnhancedBlob) {
-        const newName = currentFile.name.replace(/\.[^.]+$/, '') + '-enhanced.png';
+        const newName = currentFile.name.replace(/\.[^.]+$/, '') + `-enhanced-${currentScale}x.png`;
         downloadBlob(latestEnhancedBlob, newName);
-        showToast('Enhanced image downloaded successfully!');
+        showToast(`Enhanced ${currentScale}× image downloaded successfully!`);
       } else {
         showToast('Please wait for enhancement to complete...', 'warning');
       }
